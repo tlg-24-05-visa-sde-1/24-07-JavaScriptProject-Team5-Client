@@ -1,0 +1,30 @@
+.player-search-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* aligns the items to the right */
+    align-items: center;
+    padding-right: 100px;
+}
+
+.search-bar{
+    width: 300px;
+}
+
+
+.body{
+    text-align: center;
+}
+
+.position-buttons-container{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 140px;
+    margin-top: 10px;    
+}
+
+.position-button{
+    display: flex;
+    justify-content: flex-end; 
+    border-radius: 5px;
+    margin: 0 5px;
+}

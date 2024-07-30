@@ -1,0 +1,21 @@
+.team-generator-background{
+    background: url('../assets/PrimeTime.png');
+    background-size: cover;
+    height: 100vh;
+    width:100%;
+  }
+
+
+body{
+    text-align: center;
+}
+
+.half-court-container{
+    position: absolute;
+}
+
+
+.half-court{
+    width: 300px;
+    height: auto;
+}
