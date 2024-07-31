@@ -25,7 +25,9 @@ function App() {
         <Route exact path="teamGenerator" element={<TeamGenerator/>}/>
       </Routes>
     </Router>
+
   )
 }
 
 export default App
+//hello
