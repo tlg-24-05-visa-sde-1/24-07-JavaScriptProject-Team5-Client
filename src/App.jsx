@@ -28,6 +28,7 @@ function App() {
           <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/teamGenerator" element={<TeamGenerator />} />
         </Routes>
       </Router>
     </UserProvider>

@@ -29,7 +29,7 @@ const TeamGenerator = () => {
     }
 
     try {
-      await axios.put('http://localhost:3000/teams/addPlayer', {
+      await axios.put('http://localhost:3000/players/addPlayer', {
         playerId: player._id,
         userId
       });
