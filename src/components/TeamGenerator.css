@@ -3,6 +3,13 @@
     background-size: cover;
     height: 100vh;
     width:100%;
+    background-size: cover;
+    height: 100vh;
+    width:100%;
+    position: relative;
+    position: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 
@@ -18,4 +25,15 @@ body{
 .half-court{
     width: 300px;
     height: auto;
+}
+
+.half-court-image{
+    width: 60%;
+    max-width:800px;
+    height: auto;
+    position: absolute;
+    display: flex;
+    top: 75px;
+    left: 225px;
+    z-index: 1;
 }
