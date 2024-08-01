@@ -1,35 +1,30 @@
-.team-generator-background{
+.team-generator-background {
     background: url('../assets/PrimeTime.png');
     background-size: cover;
     height: 100vh;
-    width:100%;
-    background-size: cover;
-    height: 100vh;
-    width:100%;
+    width: 100%;
     position: relative;
-    position: flex;
+    display: flex; /* corrected from position: flex; to display: flex; */
     align-items: center;
     justify-content: center;
-  }
+}
 
-
-body{
+body {
     text-align: center;
 }
 
-.half-court-container{
+.half-court-container {
     position: absolute;
 }
 
-
-.half-court{
+.half-court {
     width: 300px;
     height: auto;
 }
 
-.half-court-image{
+.half-court-image {
     width: 60%;
-    max-width:800px;
+    max-width: 800px;
     height: auto;
     position: absolute;
     display: flex;
