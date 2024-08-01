@@ -54,7 +54,7 @@ const ManageTeam = () => {
     }
 
     try {
-      await axios.put('http://localhost:3000/teams/addPlayer', {
+      await axios.put('http://localhost:3000/players/addPlayer', {
         playerId: player._id,
         userId
       });
@@ -69,7 +69,7 @@ const ManageTeam = () => {
 
   const handleRemovePlayer = async (player) => {
     try {
-      await axios.delete('http://localhost:3000/teams/removePlayer', {
+      await axios.delete('http://localhost:3000/players/removePlayer', {
         data: {
           playerId: player._id,
           userId
