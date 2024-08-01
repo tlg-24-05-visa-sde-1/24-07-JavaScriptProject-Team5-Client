@@ -11,18 +11,17 @@ const MAX_STEALS = 150;
 const MAX_BLOCKS = 81;
 const MAX_PERSONAL_FOULS = 250;
 
-const NBAPlayerCard = ({ player }) => {
+const NBAPlayerCard = ({ player, showRemoveButton, onRemove }) => {
 
   const pointsPerGame = player.points / player.games;
   const assistsPerGame = player.assists / player.games;
   const offensiveReboundsPerGame = player.offensiveRb / player.games;
   const fieldGoalPercentage = player.fieldPercent;
-  const freeThrowPercentage = player.ftPercent || 0; 
+  const freeThrowPercentage = player.ftPercent || 0;
   const stealsPerGame = player.steals / player.games;
   const blocksPerGame = player.blocks / player.games;
   const defensiveReboundsPerGame = player.defensiveRb / player.games;
   const personalFoulsPerGame = player.personalFouls / player.games;
-
 
   const normalizedPoints = pointsPerGame / (MAX_POINTS / player.games);
   const normalizedAssists = assistsPerGame / (MAX_ASSISTS / player.games);
@@ -34,25 +33,21 @@ const NBAPlayerCard = ({ player }) => {
   const normalizedDefensiveRebounds = defensiveReboundsPerGame / (MAX_DEFENSIVE_REBOUNDS / player.games);
   const normalizedPersonalFouls = personalFoulsPerGame / (MAX_PERSONAL_FOULS / player.games);
 
-
   const offensiveRating = Math.round(
     ((normalizedPoints * 0.4) + (normalizedAssists * 0.3) +
     (normalizedOffensiveRebounds * 0.1) + (normalizedFieldGoalPercentage * 0.1) +
     (normalizedFreeThrowPercentage * 0.1)) * 100
   );
 
-
   const defensiveRating = Math.round(
     ((normalizedSteals * 0.4) + (normalizedBlocks * 0.3) +
     (normalizedDefensiveRebounds * 0.2) - (normalizedPersonalFouls * 0.1)) * 100
   );
 
-
   const overallRating = Math.round((offensiveRating + defensiveRating) / 2);
 
   return (
     <Card className="w-64 bg-slate-800 text-white overflow-hidden relative">
-
       <div className="absolute top-2 left-2 bg-yellow-500 text-black font-bold rounded-full w-10 h-10 flex items-center justify-center z-10">
         {overallRating}
       </div>
@@ -67,6 +62,14 @@ const NBAPlayerCard = ({ player }) => {
           <h2 className="text-lg font-bold">{player.playerName}</h2>
           <p className="text-sm">{player.position}</p>
         </div>
+        {showRemoveButton && (
+          <button
+            className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 z-20"
+            onClick={onRemove}
+          >
+            Remove
+          </button>
+        )}
       </div>
       <CardContent className="p-4">
         <div className="flex justify-between">

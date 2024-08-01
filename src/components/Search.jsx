@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import './Search.css';
 
-
-function Search() {
+function Search({ onAddPlayer }) {
   const [selectedPosition, setSelectedPosition] = useState(null);
   const [filteredPlayers, setFilteredPlayers] = useState([]);
   const [search, setSearch] = useState('');
-  const [allPlayers, setAllPlayers] =useState([]);
+  const [allPlayers, setAllPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [dots, setDots] = useState('')
+  const [dots, setDots] = useState('');
 
   const positions = [
     { value: 'PG', label: 'PG' },
@@ -22,22 +21,22 @@ function Search() {
   useEffect(() => {
     setLoading(true);
     fetch('http://localhost:3000/players/allPlayers')
-    .then(response => response.json())
-    .then(data => {
-      setAllPlayers(data);
-      setFilteredPlayers(data);
-    })
-    .catch(error => console.error('Error fetching players:', error))
-    .finally(() => setLoading(false));
-  }, [])
+      .then(response => response.json())
+      .then(data => {
+        setAllPlayers(data);
+        setFilteredPlayers(data);
+      })
+      .catch(error => console.error('Error fetching players:', error))
+      .finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
     let results = allPlayers;
-    // Filter by position if selected
+    
     if (selectedPosition) {
-      results = results.filter(player => player.position === selectedPosition);
+      results = results.filter(player => player.position === selectedPosition.value);
     }
-    // Filter by search term
+
     results = results.filter(player =>
       player.playerName.toLowerCase().includes(search.toLowerCase())
     );
@@ -47,7 +46,7 @@ function Search() {
 
   useEffect(() => {
     let dotCount = 0;
-    if(loading) {
+    if (loading) {
       const interval = setInterval(() => {
         setDots(prev => {
           const newDots = '.'.repeat((dotCount % 3) + 1);
@@ -55,11 +54,11 @@ function Search() {
           return newDots;
         });
       }, 300);
-      return () => clearInterval(interval); 
+      return () => clearInterval(interval);
     } else {
-      setDots('')
+      setDots('');
     }
-  },[loading])
+  }, [loading]);
 
   const handleSearchChange = (selectedOption) => {
     setSearch(selectedOption ? selectedOption.label : '');
@@ -70,6 +69,17 @@ function Search() {
       setSelectedPosition(null);
     } else {
       setSelectedPosition(position);
+    }
+  };
+
+  const handleAddPlayerClick = (player) => {
+    if (onAddPlayer) {
+      const positionIndex = positions.findIndex(pos => pos.value === selectedPosition?.value);
+      if (positionIndex !== -1) {
+        onAddPlayer(player, positionIndex);
+      } else {
+        alert("Please select a position first.");
+      }
     }
   };
 
@@ -93,7 +103,7 @@ function Search() {
           <button
             key={pos.value}
             className={`position-button ${selectedPosition === pos.value ? 'active' : ''}`}
-            onClick={() => handlePositionChange(pos.value)}
+            onClick={() => handlePositionChange(pos)}
           >
             {pos.label}
           </button>
@@ -101,16 +111,17 @@ function Search() {
       </section>
       <section className='player-list'>
         <div className='display-box'>
-         {loading ? (<p>Loading Players{dots}</p>
-         ): filteredPlayers.length > 0 ? (
+          {loading ? (
+            <p>Loading Players{dots}</p>
+          ) : filteredPlayers.length > 0 ? (
             filteredPlayers.map(player => (
               <div key={player._id} className='player-item'>
                 <p>{player.playerName} - {player.position}</p>
-                <button className='add-button'>Add</button>
+                <button className='add-button' onClick={() => handleAddPlayerClick(player)}>Add</button>
               </div>
             ))
           ) : (
-            <p>Loading players, please wait</p>
+            <p>No players found</p>
           )}
         </div>
       </section>
@@ -119,4 +130,3 @@ function Search() {
 }
 
 export default Search;
-

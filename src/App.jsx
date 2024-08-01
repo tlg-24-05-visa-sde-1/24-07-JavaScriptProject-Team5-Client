@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import { UserProvider } from './UserContext';
+import ManageTeam from "./components/ManageTeam";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         </nav>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/teamGenerator" element={<TeamGenerator />} />
+          <Route path="/manage-team" element={<ManageTeam />} />
           <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />

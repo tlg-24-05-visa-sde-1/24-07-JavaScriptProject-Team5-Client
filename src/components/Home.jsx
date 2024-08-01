@@ -4,7 +4,7 @@ import NBAPlayerCard from "./NBAPlayerCard";
 import halfCourtImage from '../assets/half-court.png';
 import { useNavigate } from "react-router-dom";
 import { useUser } from '../UserContext';
-import './TeamGenerator.css'; // Ensure the CSS file is imported
+import './TeamGenerator.css'; 
 
 const Home = () => {
   const [team, setTeam] = useState(null);
@@ -65,9 +65,9 @@ const Home = () => {
 
   const handleManageOrCreateTeam = () => {
     if (team) {
-      navigate('/manage-team');
+      navigate('/manage-team', { state: { userId } });
     } else {
-      navigate('/create-team');
+      navigate('/teamGenerator', { state: { userId } });
     }
   };
 
