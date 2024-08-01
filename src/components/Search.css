@@ -1,4 +1,4 @@
-.player-search-container {
+.player-search-container{
   width: 100%;
   display: flex;
   justify-content: flex-end; /* aligns the items to the right */
@@ -7,41 +7,46 @@
   color: black;
 }
 
-.search-bar {
+.search-bar{
   width: 300px;
 }
 
-.body {
+
+.body{
   text-align: center;
 }
 
-.position-buttons-container {
+.position-buttons-container{
   display: flex;
   justify-content: flex-end;
   padding-right: 140px;
-  margin-top: 10px;
+  margin-top: 10px;    
+
 }
 
-.position-button {
+.position-button{
+  padding: 5px 8px;
   display: flex;
-  justify-content: flex-end;
+  
+  justify-content: flex-end; 
   border-radius: 5px;
   margin: 0 5px;
   cursor: pointer;
+  background-color: white;
+  color: black;
 }
 
-.position-button.active {
+.position-button.active{
   background-color: green;
   color: black;
   border: 1px solid black;
 }
 
-.player-list {
+.player-list{
   justify-content: flex-end;
   margin-right: 100px;
   display: flex;
 }
-
 .display-box {
   border: 1px solid #ccc;
   padding: 10px;
@@ -51,9 +56,10 @@
   width: 300px;
   overflow-y: auto;
   background-color: black;
+
 }
 
-.player-item {
+.player-item{
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -66,10 +72,11 @@
 }
 
 .add-button {
-  padding: 1px 4px;
+  padding: 1px 4px; 
   border: none;
   border-radius: 3px;
   cursor: pointer;
   font-size: 12px;
+  background-color: white;
+  color: black;
 }
-
