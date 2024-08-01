@@ -7,8 +7,9 @@ function Search() {
   const [selectedPosition, setSelectedPosition] = useState(null);
   const [filteredPlayers, setFilteredPlayers] = useState([]);
   const [search, setSearch] = useState('');
- // const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [allPlayers, setAllPlayers] =useState([]);
+  const [loading, setLoading] = useState(true);
+  const [dots, setDots] = useState('')
 
   const positions = [
     { value: 'PG', label: 'PG' },
@@ -19,13 +20,15 @@ function Search() {
   ];
 
   useEffect(() => {
+    setLoading(true);
     fetch('http://localhost:3000/players/allPlayers')
     .then(response => response.json())
     .then(data => {
       setAllPlayers(data);
       setFilteredPlayers(data);
     })
-    .catch(error => console.error('Error fetching players:', error));
+    .catch(error => console.error('Error fetching players:', error))
+    .finally(() => setLoading(false));
   }, [])
 
   useEffect(() => {
@@ -41,6 +44,22 @@ function Search() {
 
     setFilteredPlayers(results);
   }, [search, selectedPosition, allPlayers]);
+
+  useEffect(() => {
+    let dotCount = 0;
+    if(loading) {
+      const interval = setInterval(() => {
+        setDots(prev => {
+          const newDots = '.'.repeat((dotCount % 3) + 1);
+          dotCount++;
+          return newDots;
+        });
+      }, 300);
+      return () => clearInterval(interval); 
+    } else {
+      setDots('')
+    }
+  },[loading])
 
   const handleSearchChange = (selectedOption) => {
     setSearch(selectedOption ? selectedOption.label : '');
@@ -82,7 +101,8 @@ function Search() {
       </section>
       <section className='player-list'>
         <div className='display-box'>
-          {filteredPlayers.length > 0 ? (
+         {loading ? (<p>Loading Players{dots}</p>
+         ): filteredPlayers.length > 0 ? (
             filteredPlayers.map(player => (
               <div key={player._id} className='player-item'>
                 <p>{player.playerName} - {player.position}</p>
@@ -90,7 +110,7 @@ function Search() {
               </div>
             ))
           ) : (
-            <p>No players selected</p>
+            <p>Loading players, please wait</p>
           )}
         </div>
       </section>
