@@ -1,7 +1,7 @@
 .player-search-container{
   width: 100%;
   display: flex;
-  justify-content: flex-end; /* aligns the items to the right */
+  justify-content: flex-end; 
   align-items: center;
   padding-right: 100px;
   color: black;
@@ -80,7 +80,6 @@
   background-color: white;
   color: black;
 }
-
 .loading-text {
   font-size: 1rem;
   color: #333;
@@ -106,3 +105,4 @@
 .loading-text span:nth-child(3) {
   animation-delay: 1s;
 }
+

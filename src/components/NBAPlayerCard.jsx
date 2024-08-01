@@ -12,12 +12,12 @@ const MAX_BLOCKS = 81;
 const MAX_PERSONAL_FOULS = 250;
 
 const NBAPlayerCard = ({ player }) => {
-  
+
   const pointsPerGame = player.points / player.games;
   const assistsPerGame = player.assists / player.games;
   const offensiveReboundsPerGame = player.offensiveRb / player.games;
   const fieldGoalPercentage = player.fieldPercent;
-  const freeThrowPercentage = player.ftPercent || 0; // Handling null values
+  const freeThrowPercentage = player.ftPercent || 0; 
   const stealsPerGame = player.steals / player.games;
   const blocksPerGame = player.blocks / player.games;
   const defensiveReboundsPerGame = player.defensiveRb / player.games;
