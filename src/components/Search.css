@@ -1,7 +1,7 @@
 .player-search-container {
   width: 100%;
   display: flex;
-  justify-content: flex-end; /* aligns the items to the right */
+  justify-content: flex-end; 
   align-items: center;
   padding-right: 100px;
   color: black;
@@ -72,4 +72,3 @@
   cursor: pointer;
   font-size: 12px;
 }
-
