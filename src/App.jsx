@@ -8,7 +8,7 @@ function Home(){
 
 function App() {
   return (
-    
+
     <Router>
       <nav className='navbar navbar-expand-sm navbar-light'>
         <ul>
