@@ -59,15 +59,56 @@ label {
 }
 
 .login-button {
-  background-color: #007bff;
+  background-color: orange;
   color: white;
 }
 
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: orangered;
 }
 
-button.active{
-  background-color: green;
+/* General styles for the landing div */
+.landing {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+.landing header {
+  text-align: center;
+  background: black;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.landing h1 {
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: white;
+}
+
+.landing p {
+  margin-bottom: 30px;
+  font-size: 1.2em;
+}
+
+
+.buttons button {
+  font-size: 1em;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: orange;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.buttons button:hover {
+  background-color: orangered;
+}

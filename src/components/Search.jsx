@@ -34,7 +34,7 @@ function Search({ onAddPlayer }) {
     let results = allPlayers;
     
     if (selectedPosition) {
-      results = results.filter(player => player.position === selectedPosition.value);
+      results = results.filter(player => player.position === selectedPosition);
     }
 
     results = results.filter(player =>
@@ -65,16 +65,16 @@ function Search({ onAddPlayer }) {
   };
 
   const handlePositionChange = (position) => {
-    if (selectedPosition === position) {
+    if (selectedPosition === position.value) {
       setSelectedPosition(null);
     } else {
-      setSelectedPosition(position);
+      setSelectedPosition(position.value);
     }
   };
 
   const handleAddPlayerClick = (player) => {
     if (onAddPlayer) {
-      const positionIndex = positions.findIndex(pos => pos.value === selectedPosition?.value);
+      const positionIndex = positions.findIndex(pos => pos.value === selectedPosition);
       if (positionIndex !== -1) {
         onAddPlayer(player, positionIndex);
       } else {

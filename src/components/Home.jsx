@@ -141,7 +141,7 @@ const Home = () => {
 ))}
         </div>
         <div className="info-container">
-          <div className="button-container">
+          <div className="manage-button-container">
             <button className="manage-create-button" onClick={handleManageOrCreateTeam}>
               {team ? "Manage Team" : "Create Team"}
             </button>
