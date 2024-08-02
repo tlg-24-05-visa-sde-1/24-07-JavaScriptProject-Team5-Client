@@ -1,74 +1,127 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import halfCourtImage from '../assets/half-court.png';
-import NBAPlayerCard from './NBAPlayerCard';
-import { useNavigate, useLocation } from 'react-router-dom';
-import './TeamGenerator.css';
-import Search from './Search';
+import React, { useState } from "react";
+import axios from "axios";
+import halfCourtImage from "../assets/half-court.png";
+import NBAPlayerCard from "./NBAPlayerCard";
+import { useNavigate, useLocation } from "react-router-dom";
+import "./TeamGenerator.css";
+import Search from "./Search";
 
 const TeamGenerator = () => {
-  const [teamName, setTeamName] = useState('');
+  const [teamName, setTeamName] = useState("");
   const [teamId, setTeamId] = useState(null);
-  const [players, setPlayers] = useState([null, null, null, null, null]);
+  const [players, setPlayers] = useState([]);
+  const [duplicates, setDuplicates] = useState({});
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const userId = location.state?.userId;
 
-  const positionStyles = [
-    { top: '60%', left: '50%', transform: 'translate(-50%, -50%)' },  // Point Guard
-    { top: '60%', left: '30%', transform: 'translate(-50%, -50%)' },  // Shooting Guard
-    { top: '60%', left: '70%', transform: 'translate(-50%, -50%)' },  // Small Forward
-    { top: '40%', left: '40%', transform: 'translate(-50%, -50%)' },  // Power Forward
-    { top: '40%', left: '60%', transform: 'translate(-50%, -50%)' }   // Center
-  ];
+  const positionStyles = {
+    PG: { bottom: "10%", left: "50%" },
+    SG: { bottom: "30%", left: "20%" },
+    SF: { bottom: "30%", right: "20%" },
+    PF: { top: "30%", left: "30%" },
+    C: { top: "20%", left: "50%" },
+  };
 
-  const handleAddPlayer = async (player, position) => {
+  const handleAddPlayer = async (player) => {
     if (!teamId) {
-      alert("Please create a team first.");
+      setError("Please create a team first.");
       return;
     }
 
     try {
-      await axios.put('http://localhost:3000/players/addPlayer', {
+      await axios.put("http://localhost:3000/players/addPlayer", {
         playerId: player._id,
-        userId
+        userId,
       });
 
-      const newPlayers = [...players];
-      newPlayers[position] = player;
-      setPlayers(newPlayers);
+      const existingPlayer = players.find(
+        (p) => p.position === player.position
+      );
+      if (existingPlayer) {
+        const newDuplicates = { ...duplicates };
+        if (!newDuplicates[player.position]) {
+          newDuplicates[player.position] = [];
+        }
+        newDuplicates[player.position].push(existingPlayer);
+        setDuplicates(newDuplicates);
+        setPlayers(
+          players.map((p) => (p._id === existingPlayer._id ? player : p))
+        );
+      } else {
+        setPlayers([...players, player]);
+      }
     } catch (error) {
-      console.error('Error adding player to team:', error);
+      console.error("Error adding player to team:", error);
+      setError(`Failed to add player. ${error.message}`);
     }
   };
 
   const handleCreateTeam = async () => {
+    if (!teamName.trim()) {
+      setError("Please enter a team name.");
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:3000/teams/createTeam', {
-        teamName,
-        userId
-      });
+      const response = await axios.post(
+        "http://localhost:3000/teams/createTeam",
+        {
+          teamName,
+          userId,
+        }
+      );
       const team = response.data;
-      console.log('Team created:', team);
+      console.log("Team created:", team);
       setTeamId(team._id);
+      setError(null);
     } catch (error) {
-      console.error('Error creating team:', error);
+      console.error("Error creating team:", error);
+      setError(`Failed to create team. ${error.message}`);
     }
   };
 
   const handleFinish = () => {
-    navigate('/home', { state: { userId } });
+    if (players.length < 5) {
+      setError("Please add at least 5 players to your team before finishing.");
+      return;
+    }
+    navigate("/home", { state: { userId } });
   };
 
   return (
     <div className="full-screen-container">
       <div className="half-court-container">
-        <img src={halfCourtImage} alt="Basketball Half Court" className="half-court-image" />
-        {players.map((player, index) => player && (
-          <div key={player._id} className="absolute player-card" style={positionStyles[index]}>
+        <img
+          src={halfCourtImage}
+          alt="Basketball Half Court"
+          className="half-court-image"
+        />
+        {players.map((player) => (
+          <div
+            key={player._id}
+            className="absolute player-card"
+            style={positionStyles[player.position]}
+          >
             <NBAPlayerCard player={player} />
           </div>
         ))}
+        {Object.entries(duplicates).map(([position, dups]) =>
+          dups.map((player, index) => (
+            <div
+              key={player._id}
+              className="absolute player-card"
+              style={{
+                right: "-15%",
+                top: `${10 + index * 20}%`,
+                transform: "none",
+              }}
+            >
+              <NBAPlayerCard player={player} />
+            </div>
+          ))
+        )}
       </div>
       <div className="search-container">
         <input
@@ -86,8 +139,13 @@ const TeamGenerator = () => {
         >
           {teamId ? "Team Created" : "Create Team"}
         </button>
+        {error && <div className="error-message">{error}</div>}
         <Search onAddPlayer={handleAddPlayer} />
-        <button className="finish-button" onClick={handleFinish}>
+        <button
+          className="finish-button"
+          onClick={handleFinish}
+          disabled={players.length < 5 || !teamId}
+        >
           Finish
         </button>
       </div>

@@ -1,6 +1,7 @@
 .navbar-nav{
   display: flex;
   color: bisque;
+  
 }
 
 .signup-container, .login-container {
@@ -8,7 +9,6 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f0f0;
 }
 
 .signup-form, .login-form {
@@ -36,23 +36,23 @@ label {
   color: #333;
 }
 
-button {
+.login-button {
   width: 100%;
   padding: 0.75rem;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 1rem; 
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.login-button:hover {
   background-color: #0056b3;
 }
 
-button:disabled {
+.login-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
 }
@@ -64,4 +64,8 @@ button:disabled {
 
 .login-button:hover {
   background-color: #0056b3;
+}
+
+button.active{
+  background-color: green;
 }
