@@ -24,7 +24,7 @@
         "sf . pf"
         "c c c";
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem; /* Adjust the gap between cards as needed */
+    gap: 1rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -33,7 +33,7 @@
 }
 
 .player-card {
-    width: 100%; /* Make cards fit within grid cells */
+    width: 100%;
     height: auto;
 }
 
