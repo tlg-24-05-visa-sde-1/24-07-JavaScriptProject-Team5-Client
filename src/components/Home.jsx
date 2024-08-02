@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import NBAPlayerCard from "./NBAPlayerCard";
 import halfCourtImage from '../assets/half-court.png';
 import { useNavigate } from "react-router-dom";
 import { useUser } from '../UserContext';
 import './TeamGenerator.css'; 
+
 
 const Home = () => {
   const [team, setTeam] = useState(null);
@@ -76,28 +78,42 @@ const Home = () => {
   }
 
   return (
-    <div className="full-screen-container">
-      <div className="half-court-container">
-        <img src={halfCourtImage} alt="Basketball Half Court" className="half-court-image" />
-
-        {team && (
-          <div className="absolute top-4 left-4 bg-white p-2 rounded shadow text-black">
-            <h2 className="text-xl font-bold">{team.teamName}</h2>
-          </div>
-        )}
-
-        {team ? (
-          players.length > 0 ? players.map((player, index) => (
-            <div key={player._id} className="absolute player-card" style={positionStyles[index]}>
-              <NBAPlayerCard player={player} />
+    <div>
+    <nav className="navbar navbar-expand-sm navbar-light">
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link to="/">
+            <button className="nav-button">Home</button>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/teamGenerator">
+            <button className="nav-button">Team Generator</button>
+          </Link>
+        </li>
+      </ul>
+    </nav>
+      <div className="full-screen-container">
+        <div className="half-court-container">
+          <img src={halfCourtImage} alt="Basketball Half Court" className="half-court-image" />
+          {team && (
+            <div className="absolute top-4 left-4 bg-white p-2 rounded shadow text-black">
+              <h2 className="text-xl font-bold">Team {team.teamName}</h2>
             </div>
-          )) : <div className="text-white">No players found</div>
-        ) : null}
-      </div>
-      <div className="button-container">
-        <button className="manage-create-button" onClick={handleManageOrCreateTeam}>
-          {team ? "Manage Team" : "Create Team"}
-        </button>
+          )}
+          {team ? (
+            players.length > 0 ? players.map((player, index) => (
+              <div key={player._id} className="absolute player-card" style={positionStyles[index]}>
+                <NBAPlayerCard player={player} />
+              </div>
+            )) : <div className="text-white">No players found</div>
+          ) : null}
+        </div>
+        <div className="button-container">
+          <button className="manage-create-button" onClick={handleManageOrCreateTeam}>
+            {team ? "Manage Team" : "Create Team"}
+          </button>
+        </div>
       </div>
     </div>
   );

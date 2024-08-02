@@ -1,9 +1,9 @@
 .player-search-container{
   width: 100%;
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end; /* aligns the items to the right */
   align-items: center;
-  padding-right: 100px;
+  padding-right: 75px;
   color: black;
 }
 
@@ -19,7 +19,7 @@
 .position-buttons-container{
   display: flex;
   justify-content: flex-end;
-  padding-right: 140px;
+  padding-right: 115px;
   margin-top: 10px;    
 
 }
@@ -27,7 +27,6 @@
 .position-button{
   padding: 5px 8px;
   display: flex;
-  
   justify-content: flex-end; 
   border-radius: 5px;
   margin: 0 5px;
@@ -44,7 +43,7 @@
 
 .player-list{
   justify-content: flex-end;
-  margin-right: 100px;
+  margin-right: 75px;
   display: flex;
 }
 .display-box {
@@ -80,6 +79,7 @@
   background-color: white;
   color: black;
 }
+
 .loading-text {
   font-size: 1rem;
   color: #333;
@@ -105,4 +105,3 @@
 .loading-text span:nth-child(3) {
   animation-delay: 1s;
 }
-
