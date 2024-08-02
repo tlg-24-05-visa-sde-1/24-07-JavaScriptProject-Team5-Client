@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import logo from '../assets/added!.gif'
 import { useNavigate } from "react-router-dom";
 import "../App.css"; 
 
@@ -38,6 +39,7 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
+      <img src={logo} alt ='logo' className="logo"/>
       <form className="signup-form" onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
         <input

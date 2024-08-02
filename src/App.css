@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin-right: 400px;
 }
 
 .signup-form, .login-form {
@@ -69,3 +70,4 @@ label {
 button.active{
   background-color: green;
 }
+
