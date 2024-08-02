@@ -17,11 +17,11 @@ const TeamGenerator = () => {
   const userId = location.state?.userId;
 
   const positionStyles = {
-    PG: { bottom: "10%", left: "50%" },
-    SG: { bottom: "30%", left: "20%" },
-    SF: { bottom: "30%", right: "20%" },
-    PF: { top: "30%", left: "30%" },
-    C: { top: "20%", left: "50%" },
+    PG: { gridArea: 'pg' },
+    SG: { gridArea: 'sg' },
+    SF: { gridArea: 'sf' },
+    PF: { gridArea: 'pf' },
+    C: { gridArea: 'c' }
   };
 
   const handleAddPlayer = async (player) => {
@@ -98,30 +98,28 @@ const TeamGenerator = () => {
           alt="Basketball Half Court"
           className="half-court-image"
         />
-        {players.map((player) => (
-          <div
-            key={player._id}
-            className="absolute player-card"
-            style={positionStyles[player.position]}
-          >
-            <NBAPlayerCard player={player} />
-          </div>
-        ))}
-        {Object.entries(duplicates).map(([position, dups]) =>
-          dups.map((player, index) => (
+        <div className="grid-container">
+          {players.map((player) => (
             <div
               key={player._id}
-              className="absolute player-card"
-              style={{
-                right: "-15%",
-                top: `${10 + index * 20}%`,
-                transform: "none",
-              }}
+              className="player-card"
+              style={positionStyles[player.position]}
             >
               <NBAPlayerCard player={player} />
             </div>
-          ))
-        )}
+          ))}
+          {Object.entries(duplicates).map(([position, dups]) =>
+            dups.map((player, index) => (
+              <div
+                key={player._id}
+                className="duplicate-player-card"
+                style={{ top: `${10 + index * 20}%` }}
+              >
+                <NBAPlayerCard player={player} />
+              </div>
+            ))
+          )}
+        </div>
       </div>
       <div className="search-container">
         <input

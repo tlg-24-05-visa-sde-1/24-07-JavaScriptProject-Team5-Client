@@ -16,11 +16,11 @@ const ManageTeam = () => {
   const userId = location.state?.userId;
 
   const positionStyles = {
-    PG: { bottom: "10%", left: "50%" },
-    SG: { bottom: "30%", left: "20%" },
-    SF: { bottom: "30%", right: "20%" },
-    PF: { top: "30%", left: "30%" },
-    C: { top: "20%", left: "50%" },
+    PG: { gridArea: 'pg' },
+    SG: { gridArea: 'sg' },
+    SF: { gridArea: 'sf' },
+    PF: { gridArea: 'pf' },
+    C: { gridArea: 'c' }
   };
 
   useEffect(() => {
@@ -47,7 +47,6 @@ const ManageTeam = () => {
           playerIds.includes(player._id)
         );
 
-       
         const newDuplicates = {};
         const uniquePlayers = [];
         teamPlayers.forEach((player) => {
@@ -115,18 +114,31 @@ const ManageTeam = () => {
         },
       });
 
+      
       const newPlayers = players.filter((p) => p._id !== player._id);
+
+
       const newDuplicates = { ...duplicates };
-      if (
-        newDuplicates[player.position] &&
-        newDuplicates[player.position].length > 0
-      ) {
-        const replacementPlayer = newDuplicates[player.position].pop();
-        newPlayers.push(replacementPlayer);
+      if (newDuplicates[player.position]) {
+        newDuplicates[player.position] = newDuplicates[player.position].filter(
+          (p) => p._id !== player._id
+        );
         if (newDuplicates[player.position].length === 0) {
           delete newDuplicates[player.position];
         }
       }
+
+
+      if (players.find((p) => p._id === player._id)) {
+        if (newDuplicates[player.position] && newDuplicates[player.position].length > 0) {
+          const replacementPlayer = newDuplicates[player.position].shift();
+          newPlayers.push(replacementPlayer);
+          if (newDuplicates[player.position].length === 0) {
+            delete newDuplicates[player.position];
+          }
+        }
+      }
+
       setPlayers(newPlayers);
       setDuplicates(newDuplicates);
     } catch (error) {
@@ -134,6 +146,7 @@ const ManageTeam = () => {
       setError(`Failed to remove player. ${error.message}`);
     }
   };
+
 
   const handleSave = () => {
     navigate("/home", { state: { userId } });
@@ -151,29 +164,12 @@ const ManageTeam = () => {
           alt="Basketball Half Court"
           className="half-court-image"
         />
-        {players.map((player) => (
-          <div
-            key={player._id}
-            className="absolute player-card"
-            style={positionStyles[player.position]}
-          >
-            <NBAPlayerCard
-              player={player}
-              showRemoveButton={true}
-              onRemove={() => handleRemovePlayer(player)}
-            />
-          </div>
-        ))}
-        {Object.entries(duplicates).map(([position, dups]) =>
-          dups.map((player, index) => (
+        <div className="grid-container">
+          {players.map((player) => (
             <div
               key={player._id}
-              className="absolute player-card"
-              style={{
-                right: "-15%",
-                top: `${10 + index * 20}%`,
-                transform: "none",
-              }}
+              className="player-card"
+              style={positionStyles[player.position]}
             >
               <NBAPlayerCard
                 player={player}
@@ -181,8 +177,23 @@ const ManageTeam = () => {
                 onRemove={() => handleRemovePlayer(player)}
               />
             </div>
-          ))
-        )}
+          ))}
+          {Object.entries(duplicates).map(([position, dups]) =>
+            dups.map((player, index) => (
+              <div
+                key={player._id}
+                className="duplicate-player-card"
+                style={{ top: `${10 + index * 20}%` }}
+              >
+                <NBAPlayerCard
+                  player={player}
+                  showRemoveButton={true}
+                  onRemove={() => handleRemovePlayer(player)}
+                />
+              </div>
+            ))
+          )}
+        </div>
       </div>
       <div className="search-container">
         <Search onAddPlayer={handleAddPlayer} />
