@@ -12,6 +12,12 @@
     background-color: black;
     overflow: visible;
 }
+.info-container {
+    display: flex; /* Ensure the container is a flexbox */
+    justify-content: flex-end; /* Push children to the right */
+    position: relative;
+    padding-left: 15%;
+}
 
 .half-court-image {
     width: 100%;
@@ -97,10 +103,11 @@
 .finish-button {
     margin-right: 0;
     width: 100%;
+    background-color: #23d048;
 }
 
 .finish-button:hover {
-    background-color: #218838;
+    background-color: #0c5f1e;
 }
 
 .navbar-nav {
@@ -139,7 +146,7 @@
     margin-right: 200px;
   }
 
-  .button-container{
+  .manage-button-container{
     justify-content: flex-end;
-    margin-left: auto;
+    margin-right: auto;
   }
