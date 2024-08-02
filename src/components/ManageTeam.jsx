@@ -47,7 +47,7 @@ const ManageTeam = () => {
           playerIds.includes(player._id)
         );
 
-        // Handle duplicate positions
+       
         const newDuplicates = {};
         const uniquePlayers = [];
         teamPlayers.forEach((player) => {

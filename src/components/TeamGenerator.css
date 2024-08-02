@@ -51,14 +51,13 @@
     }
 }
 .search-container {
-    position: absolute; /* Change to absolute positioning */
-    right: 0; /* Align to the right */
+    position: absolute;
     top: 0;
     bottom: 0;
-    width: 30vw; /* Adjust width as needed */
+    width: 30vw;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-    overflow-y: auto; /* Allow scrolling if content overflows */
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
 }
@@ -95,8 +94,8 @@
 }
 
 .finish-button {
-    margin-right: 0; /* Remove right margin */
-    width: 100%; /* Make buttons full width */
+    margin-right: 0;
+    width: 100%;
 }
 
 .finish-button:hover {

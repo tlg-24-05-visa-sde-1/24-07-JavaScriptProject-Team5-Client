@@ -47,7 +47,7 @@ const Home = () => {
 
         const teamPlayers = allPlayers.filter(player => playerIds.includes(player._id));
 
-        // Handle duplicate positions
+
         const newDuplicates = {};
         const uniquePlayers = [];
         teamPlayers.forEach(player => {
@@ -67,7 +67,7 @@ const Home = () => {
       } catch (error) {
         if (error.response && error.response.status === 404) {
           console.log("No team found, showing create team button");
-          setTeam(null); // No team found
+          setTeam(null); 
         } else {
           console.error('Error fetching data:', error);
           setError(`Failed to load team data. ${error.message}`);
